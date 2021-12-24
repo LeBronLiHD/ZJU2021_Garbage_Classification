@@ -23,6 +23,11 @@ INVERTED = {0: 'Plastic Bottle', 1: 'Hats', 2: 'Newspaper', 3: 'Cans', 4: 'Glass
             11: 'Lighter', 12: 'Broom', 13: 'Old Mirror', 14: 'Toothbrush', 15: 'Dirty Cloth', 16: 'Seashell',
             17: 'Ceramic Bowl', 18: 'Paint bucket', 19: 'Battery', 20: 'Fluorescent lamp', 21: 'Tablet capsules',
             22: 'Orange Peel', 23: 'Vegetable Leaf', 24: 'Eggshell', 25: 'Banana Peel'}
+RE_INVERTED = {'Plastic Bottle': 0, 'Hats': 1, 'Newspaper': 2, 'Cans': 3, 'Glassware': 4, 'Glass Bottle': 5,
+               'Cardboard': 6, 'Basketball': 7, 'Paper': 8, 'Metalware': 9, 'Disposable Chopsticks': 10,
+               'Lighter': 11, 'Broom': 12, 'Old Mirror': 13, 'Toothbrush': 14, 'Dirty Cloth': 15, 'Seashell': 16,
+               'Ceramic Bowl': 17, 'Paint bucket': 18, 'Battery': 19, 'Fluorescent lamp': 20, 'Tablet capsules': 21,
+               'Orange Peel': 22, 'Vegetable Leaf': 23, 'Eggshell': 24, 'Banana Peel': 25}
 
 MODEL = "./results/"
 LOG = "./results/tb_results/"

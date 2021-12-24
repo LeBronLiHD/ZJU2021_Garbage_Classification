@@ -18,8 +18,8 @@ import parameter
 import generate
 import load_image
 import cnn_model_one
-from keras.callbacks import TensorBoard
-from keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.callbacks import TensorBoard
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import matplotlib.pyplot as plt
 import os
 import random
@@ -120,3 +120,9 @@ def train_model_gen(data, label, size, x_test, y_test, model_select=1):
                               callbacks=[tensorboard])
     plot_training_history(history=res.history)
     model_evaluate(model, x_test, y_test)
+
+
+if __name__ == '__main__':
+    all_train_images, all_train_labels = load_image.load_data(parameter.GEN_TRAIN)
+    all_val_images, all_val_labels = load_image.load_data(parameter.GEN_VAL)
+    print(type(all_train_images), type(all_train_labels))

@@ -21,7 +21,7 @@ def load_data(path):
             if img.size != (parameter.IMG_SIZE, parameter.IMG_SIZE):
                 img = img.resize((parameter.IMG_SIZE, parameter.IMG_SIZE), resample=Image.BICUBIC)
             cur_images.append(img)
-            cur_labels.append(parameter.INVERTED[folder])
+            cur_labels.append(parameter.INDEX[folder])
         all_images.append(cur_images)
         all_labels.append(cur_labels)
     print("read data done!")
