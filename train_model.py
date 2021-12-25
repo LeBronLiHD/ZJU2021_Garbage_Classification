@@ -90,7 +90,6 @@ def train_model_fit(data, label, size, x_test, y_test, model_select=1):
                         verbose=1,
                         steps_per_epoch=(90 * parameter.GEN_RATE * parameter.CLASS_NUM)/32,
                         validation_steps=(5 * parameter.GEN_RATE * parameter.CLASS_NUM)/32,
-                        validation_batch_size=parameter.BATCH_SIZE,
                         validation_split=0.2)
     plot_training_history(history)
     model_evaluate(model, x_test, y_test)
@@ -163,7 +162,7 @@ if __name__ == '__main__':
     np.random.shuffle(shu_index)
     all_val_images = all_val_images[shu_index, :, :, :]
     all_val_labels = all_val_labels[shu_index, :]
-    
+
     print("after preprocess ->")
     print(type(all_train_images), type(all_train_labels))
     print(all_train_images.shape, all_train_labels.shape)
