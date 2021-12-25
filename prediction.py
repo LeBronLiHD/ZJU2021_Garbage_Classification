@@ -2,14 +2,14 @@
 
 import os
 import random
-from keras.models import load_model
+from tensorflow.keras.models import load_model
 import matplotlib.pyplot as plt
 import parameter
 import numpy as np
 import math
 
 
-def plot_load_and_model_prediction(path, test, label):
+def model_prediction(path, test, label):
     model_lists = os.listdir(path)
     model_lists = sorted(model_lists,
                          key=lambda files: os.path.getmtime(os.path.join(path, files)),

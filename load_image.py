@@ -4,6 +4,7 @@ import os
 import numpy
 from PIL import Image
 import parameter
+import cv2
 
 
 def load_data(path):
@@ -22,6 +23,28 @@ def load_data(path):
                 img = img.resize((parameter.IMG_SIZE, parameter.IMG_SIZE), resample=Image.BICUBIC)
             cur_images.append(img)
             cur_labels.append(parameter.INDEX[folder])
+        all_images.append(cur_images)
+        all_labels.append(cur_labels)
+    print("read data done!")
+    return all_images, all_labels
+
+
+def load_gen_data(path):
+    folders = os.listdir(path)
+    all_images = []
+    all_labels = []
+    for folder in folders:
+        folder_path = os.path.join(path, folder)
+        cur_images = []
+        cur_labels = []
+        images = os.listdir(folder_path)
+        for image in images:
+            image_path = os.path.join(folder_path, image)
+            img = cv2.imread(image_path, flags=cv2.IMREAD_COLOR)
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+            print(image_path)
+            cur_images.append(img)
+            cur_labels.append(parameter.RE_INVERTED[folder])
         all_images.append(cur_images)
         all_labels.append(cur_labels)
     print("read data done!")

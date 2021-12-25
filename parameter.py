@@ -9,7 +9,7 @@ GEN_VAL = "./gen_data/val"
 
 GEN_RATE = 5
 
-EPOCH_NUM = 100
+EPOCH_NUM = 1
 BATCH_SIZE = 32
 IMG_SIZE = 224
 PRE_SHOW = 16

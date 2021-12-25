@@ -8,6 +8,66 @@ import os
 import numpy as np
 from load_image import load_data
 import parameter
+import random
+import shutil
+import sys
+
+
+def five_index(cover, number):
+    index = []
+    for i in range(number):
+        new = round(random.random() * cover)
+        is_overlap = True
+        while is_overlap:
+            is_overlap = False
+            for j in range(len(index)):
+                if new == index[j]:
+                    print("already selected, re-find a new one")
+                    is_overlap = True
+                    break
+            if is_overlap is False:
+                break
+            new = round(random.random() * cover)
+        index.append(new)
+    return index
+
+
+def delete_ori_val(path):
+    folders = os.listdir(path)
+    for folder in folders:
+        folder_path = os.path.join(path, folder)
+        images = os.listdir(folder_path)
+        for image in images:
+            image_path = os.path.join(folder_path, image)
+            os.remove(image_path)
+
+
+def generate_val(train_path, val_path):
+    train_folders = os.listdir(train_path)
+    val_folders = os.listdir(val_path)
+    for i in range(len(train_folders)):
+        train_folder = train_folders[i]
+        val_folder = val_folders[i]
+        if train_folder != val_folder:
+            print("train_folder != val_folder different folder name!")
+            return
+        train_folder_path = os.path.join(train_path, train_folder)
+        val_folder_path = os.path.join(val_path, val_folder)
+        images = os.listdir(train_folder_path)
+        select = five_index(len(images) - 1, 5)
+        images_select = []
+        for j in range(5):
+            print("select ->", select)
+            images_select.append(images[select[j]])
+        for j in range(5):
+            train_image = os.path.join(train_folder_path, images_select[j])
+            val_image = os.path.join(val_folder_path, images_select[j])
+            try:
+                shutil.move(train_image, val_folder_path)
+            except IOError as error:
+                print("Unable to move file. %s" % error)
+            except:
+                print("Unexpected error:", sys.exc_info())
 
 
 def crop_circle(image):
@@ -56,6 +116,10 @@ def generate_date(train_images, train_labels, val_images, val_labels):
 
 
 if __name__ == "__main__":
+    # # ONLY RUN ONE TIME!!!!
+    # # COPY FROM data/ IF RUN MORE THAN ONCE!!!
+    # delete_ori_val(parameter.ORI_VAL)
+    # generate_val(parameter.ORI_TRAIN, parameter.ORI_VAL)
     all_train_images, all_train_labels = load_data(parameter.ORI_TRAIN)
     all_val_images, all_val_labels = load_data(parameter.ORI_VAL)
     generate_date(all_train_images, all_train_labels, all_val_images, all_val_labels)
