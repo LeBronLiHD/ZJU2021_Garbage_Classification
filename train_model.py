@@ -18,7 +18,7 @@ import numpy as np
 import parameter
 import generate
 import load_image
-import cnn_model_one
+import cnn_model_one, cnn_model_two
 from tensorflow.keras.callbacks import TensorBoard
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import matplotlib.pyplot as plt
@@ -71,8 +71,8 @@ def train_model_fit(data, label, size, x_test, y_test, model_select=1):
     model = None
     if model_select == 1:
         model = cnn_model_one.cnn_model_one(size)
-    # elif model_select == 2:
-    #     model = cnn_model_one.cnn_model_one(size)
+    elif model_select == 2:
+        model = cnn_model_two.cnn_model_two((size, size, 3))
     else:
         print("model_select error!")
 
@@ -82,16 +82,17 @@ def train_model_fit(data, label, size, x_test, y_test, model_select=1):
     tensorboard = TensorBoard(parameter.LOG + datetime.datetime.now().strftime("%Y%m%d-%H%M%S"),
                               histogram_freq=1)
 
-    history = model.fit(data, label,
-                        batch_size=parameter.BATCH_SIZE,
-                        epochs=parameter.EPOCH_NUM,
-                        callbacks=[tensorboard],
-                        shuffle=True,
-                        verbose=1,
-                        steps_per_epoch=len(data) / 32,
-                        # validation_steps=(5 * parameter.GEN_RATE * parameter.CLASS_NUM)/32,
-                        validation_split=0.2)
-    plot_training_history(history)
+    res = model.fit(data, label,
+                    batch_size=parameter.BATCH_SIZE,
+                    epochs=parameter.EPOCH_NUM,
+                    callbacks=[tensorboard],
+                    shuffle=True,
+                    verbose=1,
+                    # steps_per_epoch=len(data) / 32,
+                    # validation_steps=(5 * parameter.GEN_RATE * parameter.CLASS_NUM)/32,
+                    validation_split=0.15)
+    plot_training_history(res.history)
+    print(model.summary())
     model_evaluate(model, x_test, y_test)
     prediction.model_prediction(parameter.MODEL, x_test, y_test)
 
@@ -100,8 +101,8 @@ def train_model_gen(data, label, size, x_test, y_test, model_select=1):
     model = None
     if model_select == 1:
         model = cnn_model_one.cnn_model_one(size)
-    # elif model_select == 2:
-    #     model = cnn_model_one.cnn_model_one(size)
+    elif model_select == 2:
+        model = cnn_model_two.cnn_model_two((size, size, 3))
     else:
         print("model_select error!")
     model.compile(loss="categorical_crossentropy",
@@ -135,6 +136,7 @@ def train_model_gen(data, label, size, x_test, y_test, model_select=1):
                               # validation_batch_size=parameter.BATCH_SIZE,
                               callbacks=[tensorboard])
     plot_training_history(history=res.history)
+    print(model.summary())
     model_evaluate(model, x_test, y_test)
     prediction.model_prediction(parameter.MODEL, x_test, y_test)
 
@@ -175,6 +177,9 @@ if __name__ == '__main__':
     train_model_fit(all_train_images, all_train_labels,
                     parameter.IMG_SIZE,
                     all_val_images, all_val_labels, model_select=1)
-    train_model_gen(all_train_images, all_train_labels,
+    train_model_fit(all_train_images, all_train_labels,
                     parameter.IMG_SIZE,
-                    all_val_images, all_val_labels, model_select=1)
+                    all_val_images, all_val_labels, model_select=2)
+    # train_model_gen(all_train_images, all_train_labels,
+    #                 parameter.IMG_SIZE,
+    #                 all_val_images, all_val_labels, model_select=1)
