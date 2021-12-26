@@ -23,8 +23,8 @@ def model_prediction(path, test, label):
     if model_lists is None:
         print("no model found!")
     else:
-        model = load_model(os.path.join(path, model_lists[0]))
-        print("model loaded")
+        model = load_model(os.path.join(path, model_lists[-1]))
+        print("model loaded ->", os.path.join(path, model_lists[-1]))
 
     predictions = model.predict(test)
     score = [0, 0]

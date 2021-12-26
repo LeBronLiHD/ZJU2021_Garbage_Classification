@@ -7,7 +7,7 @@ ORI_VAL = "./ori_data/val"
 GEN_TRAIN = "./gen_data/train"
 GEN_VAL = "./gen_data/val"
 
-GEN_RATE = 5
+GEN_RATE = 4
 
 EPOCH_NUM = 1
 BATCH_SIZE = 32

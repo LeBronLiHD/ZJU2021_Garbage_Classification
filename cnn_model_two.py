@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
-import keras
-from keras.layers \
+from tensorflow.keras.layers \
     import Input, Dense, Flatten, Dropout, Activation, Conv2D, ReLU, MaxPool2D
-from keras.layers.normalization import BatchNormalization
-from keras.models import Model
-from keras.callbacks import TensorBoard
+# from tensorflow.keras.layers.normalization import BatchNormalization
+from tensorflow.keras.layers import BatchNormalization
+from tensorflow.keras.models import Model
+from tensorflow.keras.callbacks import TensorBoard
 import time
+import parameter
 
 
 def cnn_model_two(input_shape):
@@ -48,9 +49,9 @@ def cnn_model_two(input_shape):
     cnn = (MaxPool2D(pool_size=2, strides=2))(cnn)
 
     cnn = (Flatten())(cnn)
-    cnn = (Dense(128))(cnn)
+    cnn = (Dense(256))(cnn)
     cnn = (Dropout(0.4))(cnn)
-    cnn = (Dense(6))(cnn)
+    cnn = (Dense(parameter.CLASS_NUM))(cnn)
 
     outputs = cnn
 

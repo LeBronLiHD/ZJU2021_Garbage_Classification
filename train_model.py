@@ -90,7 +90,7 @@ def train_model_fit(data, label, size, x_test, y_test, model_select=1):
                     verbose=1,
                     # steps_per_epoch=len(data) / 32,
                     # validation_steps=(5 * parameter.GEN_RATE * parameter.CLASS_NUM)/32,
-                    validation_split=0.15)
+                    validation_split=0.3)
     plot_training_history(res.history)
     print(model.summary())
     model_evaluate(model, x_test, y_test)

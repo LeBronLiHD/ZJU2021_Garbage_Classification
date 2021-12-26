@@ -7,6 +7,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import parameter
 from tensorflow.keras.callbacks import TensorBoard
+from tensorflow.keras.layers import BatchNormalization
 matplotlib.use('TkAgg')
 
 
@@ -63,18 +64,31 @@ def cnn_model_one(size):
     model.add(Dropout(0.3))
     model.add(Conv2D(filters=32, kernel_size=(3, 3), padding='same',
                      input_shape=(size, size, 3), activation='relu'))
+    model.add(BatchNormalization())
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Dropout(0.3))
     model.add(Conv2D(filters=64, kernel_size=(3, 3), activation='relu',
                      input_shape=(size, size, 3), padding='same'))
+    model.add(Dropout(0.3))
     model.add(Conv2D(filters=64, kernel_size=(3, 3), padding='same',
                      input_shape=(size, size, 3), activation='relu'))
+    model.add(BatchNormalization())
     model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Dropout(0.3))
     model.add(Conv2D(filters=128, kernel_size=(3, 3), activation='relu',
                      input_shape=(size, size, 3), padding='same'))
     model.add(Dropout(0.3))
     model.add(Conv2D(filters=128, kernel_size=(3, 3), padding='same',
                      input_shape=(size, size, 3), activation='relu'))
+    model.add(BatchNormalization())
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Dropout(0.3))
+    model.add(Conv2D(filters=128, kernel_size=(3, 3), activation='relu',
+                     input_shape=(size, size, 3), padding='same'))
+    model.add(Dropout(0.3))
+    model.add(Conv2D(filters=128, kernel_size=(3, 3), padding='same',
+                     input_shape=(size, size, 3), activation='relu'))
+    model.add(BatchNormalization())
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Flatten())
     model.add(Dropout(0.3))
