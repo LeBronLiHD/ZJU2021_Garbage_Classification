@@ -7,4 +7,4 @@
 - gen_data is ignored, run generate.py before train
 - Model:
     - Deep CNN
-    - YOLOv5
+    - TODO: YOLOv5
